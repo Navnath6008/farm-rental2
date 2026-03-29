@@ -1,0 +1,340 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Farm Equipment Rental</title>
+
+<style>
+body {
+    font-family: Arial;
+    margin: 0;
+    background: linear-gradient(to right, #d4fc79, #96e6a1);
+}
+
+header {
+    background: green;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.container { padding: 10px; }
+
+.card {
+    background: white;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-block;
+    width: 90%;
+}
+
+@media(min-width:600px){
+    .card { width: 250px; }
+}
+
+img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin: 8px 0;
+}
+
+/* LOGIN */
+#loginPage {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+/* IMAGE MODAL */
+#imageModal {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+#imageModal img {
+    width: 60%;
+    height: auto;
+    transform: scale(1);
+    transition: 0.3s;
+}
+
+/* MULTI SELECT */
+.selectBox {
+    margin-bottom: 5px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginPage">
+<div class="login-box">
+<h2>Login (OTP)</h2>
+<input type="text" id="mobile" placeholder="Mobile Number">
+<button onclick="sendOTP()">Send OTP</button>
+<input type="text" id="otpInput" placeholder="Enter OTP">
+<button onclick="verifyOTP()">Login</button>
+<p id="otpDisplay"></p>
+</div>
+</div>
+
+<!-- MAIN -->
+<div class="container" id="mainPage" style="display:none;">
+
+<header>
+<h2>🚜 Farm Equipment Rental</h2>
+</header>
+
+<input type="text" id="search" placeholder="Search equipment..." onkeyup="searchEquipment()">
+
+<h3>Select Equipment</h3>
+
+<!-- EQUIPMENT WITH CHECKBOX -->
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Tractor">
+<img src="images/tractor.jpg" onclick="openImage(this.src)">
+<h3>Tractor</h3>
+<p>₹500/hour</p>
+<p>⭐⭐⭐⭐☆ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Harvester">
+<img src="images/harvester.jpg" onclick="openImage(this.src)">
+<h3>Harvester</h3>
+<p>₹800/hour</p>
+<p>⭐⭐⭐⭐⭐ (5/5)</p>
+<p style="color:red;">Not Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Sprayer">
+<img src="images/sprayer.jpg" onclick="openImage(this.src)">
+<h3>Sprayer</h3>
+<p>₹200/hour</p>
+<p>⭐⭐⭐⭐ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Plough">
+<img src="images/plough.jpg" onclick="openImage(this.src)">
+<h3>Plough</h3>
+<p>₹300/hour</p>
+<p>⭐⭐⭐☆ (3.5/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Rotavator">
+<img src="images/rotavator.jpg" onclick="openImage(this.src)">
+<h3>Rotavator</h3>
+<p>₹350/hour</p>
+<p>⭐⭐⭐⭐ (4/5)</p>
+<p style="color:red;">Not Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Cultivator">
+<img src="images/cultivator.jpg" onclick="openImage(this.src)">
+<h3>Cultivator</h3>
+<p>₹250/hour</p>
+<p>⭐⭐⭐☆ (3.5/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Seed Drill">
+<img src="images/seeder.jpg" onclick="openImage(this.src)">
+<h3>Seed Drill</h3>
+<p>₹400/hour</p>
+<p>⭐⭐⭐⭐☆ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Thresher">
+<img src="images/thresher.jpg" onclick="openImage(this.src)">
+<h3>Thresher</h3>
+<p>₹450/hour</p>
+<p>⭐⭐⭐⭐ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Power Tiller">
+<img src="images/power_tiller.jpg" onclick="openImage(this.src)">
+<h3>Power Tiller</h3>
+<p>₹300/hour</p>
+<p>⭐⭐⭐⭐ (4/5)</p>
+<p style="color:red;">Not Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Land Leveler">
+<img src="images/leveler.jpg" onclick="openImage(this.src)">
+<h3>Land Leveler</h3>
+<p>₹350/hour</p>
+<p>⭐⭐⭐⭐ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Reaper">
+<img src="images/reaper.jpg" onclick="openImage(this.src)">
+<h3>Reaper</h3>
+<p>₹500/hour</p>
+<p>⭐⭐⭐⭐☆ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Baler">
+<img src="images/baler.jpg" onclick="openImage(this.src)">
+<h3>Baler</h3>
+<p>₹600/hour</p>
+<p>⭐⭐⭐⭐⭐ (5/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<div class="card">
+<input type="checkbox" class="equipSelect" value="Rice Transplanter">
+<img src="images/transplanter.jpg" onclick="openImage(this.src)">
+<h3>Rice Transplanter</h3>
+<p>₹550/hour</p>
+<p>⭐⭐⭐⭐ (4/5)</p>
+<p style="color:green;">Available</p>
+</div>
+
+<button onclick="selectEquipment()">Book Selected Equipment</button>
+
+<h3>Booking Form</h3>
+
+<form id="bookingForm">
+<input type="text" id="name" placeholder="Name" required>
+<input type="text" id="equipment" placeholder="Selected Equipment" readonly>
+<input type="date" id="date" required>
+<input type="text" id="address" placeholder="Address" required>
+<input type="text" id="pincode" placeholder="Pincode" required>
+
+<select id="payment">
+<option>UPI</option>
+<option>Card</option>
+<option>Cash</option>
+</select>
+
+<button type="submit">Confirm Booking</button>
+</form>
+
+<div id="result"></div>
+
+</div>
+
+<!-- IMAGE MODAL -->
+<div id="imageModal" onclick="closeImage()">
+<img id="modalImg">
+</div>
+
+<script>
+
+/* OTP */
+let otp="";
+function sendOTP(){
+let m=document.getElementById("mobile").value;
+if(m.length!=10){alert("Enter valid number");return;}
+otp=Math.floor(1000+Math.random()*9000);
+document.getElementById("otpDisplay").innerHTML="OTP: "+otp;
+}
+function verifyOTP(){
+if(document.getElementById("otpInput").value==otp){
+loginPage.style.display="none";
+mainPage.style.display="block";
+}else alert("Wrong OTP");
+}
+
+/* SEARCH */
+function searchEquipment(){
+let input=search.value.toLowerCase();
+let cards=document.getElementsByClassName("card");
+for(let i=0;i<cards.length;i++){
+cards[i].style.display=cards[i].innerText.toLowerCase().includes(input)?"block":"none";
+}
+}
+
+/* SELECT MULTIPLE */
+function selectEquipment(){
+let selected=[];
+let boxes=document.getElementsByClassName("equipSelect");
+
+for(let i=0;i<boxes.length;i++){
+if(boxes[i].checked){
+selected.push(boxes[i].value);
+}
+}
+
+document.getElementById("equipment").value=selected.join(", ");
+}
+
+/* IMAGE ZOOM */
+function openImage(src){
+let modal=document.getElementById("imageModal");
+let img=document.getElementById("modalImg");
+modal.style.display="flex";
+img.src=src;
+}
+
+function closeImage(){
+document.getElementById("imageModal").style.display="none";
+}
+
+/* SAVE */
+bookingForm.addEventListener("submit",function(e){
+e.preventDefault();
+
+result.innerHTML="✅ Booking Confirmed!";
+});
+
+</script>
+
+</body>
+</html>
+```
